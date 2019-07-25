@@ -24,14 +24,23 @@
    nav a{
      color:white;
      padding:20px;
+     color: #1065F2;
+     font-size: 110%;
+     font-weight: lighter;
    }
    nav{
      margin-left:60%;
    }
+   #grwork{
+      font-size: 2.5em;
+      margin-right: 70%;
+      color:white;
+      text-shadow: 1px 1px blue;
+   }
    .header{
       text-align: center;
       color: #333333;
-      background-color: #bfbfbf;
+      background-color: #B6B2B2;
       padding-top: 1%;
       font-weight: lighter;
    }
@@ -49,6 +58,13 @@
      background-color: white;
      margin: 40px 60px 0 60px;
      padding-bottom: 3px;
+
+   }
+   #midsection{
+     border: 1px solid black;
+       display: grid;
+       grid-template-columns:auto;
+
    }
    .form table tr td{
      padding:4px;
@@ -60,10 +76,14 @@
 
 
    }
+   #show{
+     display: none;
+   }
+
    .intro{
-     width: 60%;
+     width: 100%;
      height: auto;
-     margin: 0 10% 2% 10%;
+     padding: 0% 20% 2% 20%;
      text-align: center;
      font-weight: lighter;
    }
@@ -99,6 +119,14 @@ padding:2px;}
   font-weight: lighter;
   padding: 8px;
 }
+.right article label{
+  font-weight:lighter;
+  color:#EC9A3C;
+}
+.button{
+  padding:4px 14px 4px 14px;
+  background-color: #BBF0DF;
+}
 .explorer{
   display: grid;
   grid-template-columns: 30% 30% 30%;
@@ -128,6 +156,123 @@ padding: 30px;
 .footer footer{
   text-align: center;
 }
+@media only screen and (max-width: 320px) {
+  .img{
+    width: 318px;
+  }
+}
+  .imgs,img{
+    width: 318px;
+    height: auto;
+  }
+  .explorer{
+    display: grid;
+    grid-template-columns:auto;
+  }
+  .gettingstarted{
+    display: grid;
+    grid-template-columns:auto;
+  }
+   .intro{
+     width: 100%;
+    text-align: center;
+    padding:2% 6% 2% 6%;
+
+  }
+  #midsection{
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns:auto;
+
+  }
+   nav{
+    width: auto;
+    display: none;
+  }
+  #show{
+    display: block;
+  }
+  #noshow{
+    display: none;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .imgs,img{
+    width: 373px;
+    height: auto;
+  }
+  .explorer{
+    display: grid;
+    grid-template-columns:auto;
+  }
+  .gettingstarted{
+    display: grid;
+    grid-template-columns:auto;
+  }
+   .intro{
+     width: 100%;
+    text-align: center;
+    padding:2% 6% 2% 6%;
+
+  }
+  #midsection{
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns:auto;
+
+  }
+   nav{
+    width: auto;
+    display: none;
+  }
+  #show{
+    display: block;
+  }
+  #noshow{
+    display: none;
+  }
+}
+@media only screen and (max-width: 414px)
+{
+  .imgs,img{
+    width: 412px;
+    height: auto;
+  }
+  .explorer{
+    display: grid;
+    grid-template-columns:auto;
+  }
+  .gettingstarted{
+    display: grid;
+    grid-template-columns:auto;
+  }
+   .intro{
+     width: 100%;
+    text-align: center;
+    padding:2% 6% 2% 6%;
+
+  }
+  #midsection{
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns:auto;
+
+  }
+   nav{
+    width: auto;
+    display: none;
+  }
+  #show{
+    display: block;
+  }
+  #noshow{
+    display: none;
+  }
+}
+
     </style>
     <script>
 
@@ -135,10 +280,10 @@ padding: 30px;
   </head>
   <body>
    <div class="header">
-     <label for="Questions">Questions?</label><a  id ="questions"href="tel:"> 1-1800-0000</a>
-    <h1>GR.Work</h1>
+     <label for="Questions">Questions?</label><a  id ="questions"href="tel:"> 1-1800-0000</a><br>
+    <label id="grwork">GR.Work</label>
     <nav>
-      <a href="jobs.html">For Job Seekers</a>
+      <a href="#">For Job Seekers</a>
       <a href="#">For Employers</a>
       <a href="#">About Us</a>
     </nav>
@@ -147,10 +292,11 @@ padding: 30px;
      <div class="imgs">
   <img src="https://s3.amazonaws.com/wordpress-production/wp-content/uploads/sites/19/2016/03/How-Highly-Productive-People-Work-Less-and-Get-More-Done.jpg" alt="">
      </div>
+     <div id="midsection">
      <div class="form">
-       <label  style="color:#262626;font-size:2em"for="">Recruiter for Software Technologies</label>
+       <label  style="color:#262626;font-size:140%"for="">Recruiter for Software Technologies</label>
 
-       <form  action="" method="post">
+       <form  action="jobs.html" method="post" id="noshow">
          <table>
            <tr>
              <td>City</td> <td> </td> <td>State</td> <td> </td> <td>Title</td>
@@ -159,9 +305,22 @@ padding: 30px;
               <td><input type="text" class="form-control form-control"></td><td> </td> <td><input type="text" class="form-control form-control"></td><td></td>  <td><input type="text" class="form-control form-control"></td>
            </tr>
          </table>
-         <button href="jobs.html">Search</button>
+         <input class="button"type="submit" name="" value="Search">
        </form>
-
+       <form  action="jobs.html" method="post"  id="show">
+         <table>
+           <tr>
+             <td>City</td> <td><input type="text" class="form-control form-control">
+           </tr>
+           <tr>
+            <td>State </td> <td><input type="text" class="form-control form-control"></td>
+           </tr>
+           <tr>
+             <td>Title</td>  <td><input type="text" class="form-control form-control"></td>
+           </tr>
+         </table>
+         <input class="button"type="submit" name="" value="Search">
+       </form>
 
      </div>
    <div class="rightunderform">
@@ -171,11 +330,14 @@ padding: 30px;
 At EG, it’s not what you know. It’s who you know. And we know people.
  </article>
    </div>
+ </div>
    <div class="right">
-     <article>
+
+
+          <article style="color:#EC9A3C">
 <label>Help When It's needed The Most</label><br>
 
-Providing personal and Business solutions to professionals and Entreprises.
+Providing personal and Business solutions to professionals and Entreprises.<hr>
 </article>
 <div class="explorer">
   <div class="process">
