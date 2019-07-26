@@ -5,7 +5,6 @@
     <title>GR.Work</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   
 
     <style media="screen">
    *{
@@ -52,6 +51,7 @@
   margin-left:auto;
   margin-top:30px;
    }
+
    .form{
      font-size: 1em;
      text-align: center;
@@ -151,16 +151,19 @@ padding: 30px;
  grid-template-columns:50% 50%;
  width: 100%;
 }
+.gettingstarted, img{
+  max-width: 100%;
+}
 #lrightpic{
 }
 .footer footer{
   text-align: center;
 }
 @media only screen and (max-width: 320px) {
-  .imgs{
-    max-width: 318px;
+  .img{
+    width: 318px;
   }
-}
+
   .imgs,img{
     width: 318px;
     height: auto;
@@ -198,11 +201,13 @@ padding: 30px;
   }
 }
 @media only screen and (max-width: 375px) {
-  .imgs{
-    max-width:375px;
-      }
+  body{
+    margin:0px;
+    padding:0px;
+  }
+
   .imgs,img{
-    width: 373px;
+    width: 375px;
     height: auto;
   }
   .explorer{
@@ -239,12 +244,10 @@ padding: 30px;
 }
 @media only screen and (max-width: 414px)
 {
-  .imgs{
-    max-width:414px;
-      }
   .imgs,img{
-    width: 412px;
+    width: 414px;
     height: auto;
+    margin: 0px;
   }
   .explorer{
     display: grid;
@@ -286,7 +289,7 @@ padding: 30px;
   </head>
   <body>
    <div class="header">
-     <label for="Questions">Questions?</label><a  id ="questions"href="tel:"> 1-1800-0000</a><br>
+     <label for="Questions">Questions?</label><a  id ="questions" href="tel:"> 1-1800-0000</a><br>
     <label id="grwork">GR.Work</label>
     <nav>
       <a href="#">For Job Seekers</a>
@@ -300,7 +303,7 @@ padding: 30px;
      </div>
      <div id="midsection">
      <div class="form">
-       <label  style="color:#262626;font-size:140%"for="">Recruiter for Software Technologies</label>
+       <label  style="color:#262626;font-size:140%">Recruiter for Software Technologies</label>
 
        <form  action="jobs.html" method="post" id="noshow">
          <table>
@@ -311,7 +314,7 @@ padding: 30px;
               <td><input type="text" class="form-control form-control"></td><td> </td> <td><input type="text" class="form-control form-control"></td><td></td>  <td><input type="text" class="form-control form-control"></td>
            </tr>
          </table>
-         <input class="button"type="submit" name="" value="Search">
+         <input class="button" type="submit" name="search" value="Search">
        </form>
        <form  action="jobs.html" method="post"  id="show">
          <table>
@@ -331,6 +334,7 @@ padding: 30px;
      </div>
    <div class="rightunderform">
  <article class="intro">
+   <h3>Our Mission</h3>
    We’ve stood where you’re standing. We’ve been there before. As employers looking for talent, as people looking for work and as individuals just looking for something temporary to get them by. EG services take many forms, but our goal – our special skill – is always the same: we help people succeed.
 
 At EG, it’s not what you know. It’s who you know. And we know people.
