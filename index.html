@@ -36,16 +36,21 @@
       color:white;
       text-shadow: 1px 1px blue;
    }
+   #grwork::after{
+     content: "Works";
+     font-size:.5em;
+   }
    .header{
       text-align: center;
       color: #333333;
       background-color: #B6B2B2;
       padding-top: 1%;
       font-weight: lighter;
+      width: 100%;
    }
    .imgs{
     height: 700px;
-    width: 60%;
+    width: 100%;
    background-repeat: no-repeat;
    margin-right:auto;
   margin-left:auto;
@@ -64,7 +69,7 @@
      border: 1px solid black;
        display: grid;
        grid-template-columns:auto;
-
+    width: 100%;
    }
    .form table tr td{
      padding:4px;
@@ -160,12 +165,16 @@ padding: 30px;
   text-align: center;
 }
 @media only screen and (max-width: 320px) {
-  .img{
-    width: 318px;
+  .header{
+    width: 320px;
+  }
+}
+  #img2{
+    width: 320px;
   }
 
   .imgs,img{
-    width: 318px;
+    width: 320px;
     height: auto;
   }
   .explorer{
@@ -204,8 +213,11 @@ padding: 30px;
   body{
     margin:0px;
     padding:0px;
+    margin: 0px;
   }
-
+  .header{
+    width: 375px;
+  }
   .imgs,img{
     width: 375px;
     height: auto;
@@ -229,7 +241,7 @@ padding: 30px;
       margin: 0;
       display: grid;
       grid-template-columns:auto;
-
+      width: 375px;
   }
    nav{
     width: auto;
@@ -290,7 +302,7 @@ padding: 30px;
   <body>
    <div class="header">
      <label for="Questions">Questions?</label><a  id ="questions" href="tel:"> 1-1800-0000</a><br>
-    <label id="grwork">GR.Work</label>
+    <label id="grwork">GR.</label>
     <nav>
       <a href="#">For Job Seekers</a>
       <a href="#">For Employers</a>
@@ -298,7 +310,7 @@ padding: 30px;
     </nav>
    </div>
    <div class="main">
-     <div class="imgs">
+     <div class="imgs" id="img2">
   <img src="https://s3.amazonaws.com/wordpress-production/wp-content/uploads/sites/19/2016/03/How-Highly-Productive-People-Work-Less-and-Get-More-Done.jpg" alt="">
      </div>
      <div id="midsection">
