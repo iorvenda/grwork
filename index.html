@@ -24,7 +24,7 @@
      color:white;
      padding:20px;
      color: #1065F2;
-     
+
      font-weight: lighter;
    }
    nav{
@@ -49,9 +49,9 @@
       width: 100%;
    }
    .imgs{
-     width: 100%;
-    height: 700px;
-
+     width: 90%;
+    height: auto;
+filter: grayscale(20%);
    background-repeat: no-repeat;
    margin-right:auto;
   margin-left:auto;
@@ -91,7 +91,7 @@
      display: none;
    }
 
-   .intro{
+   #intro{
      width: 100%;
      height: auto;
      padding: 0% 20% 2% 20%;
@@ -134,6 +134,9 @@ padding:2px;}
   font-weight:lighter;
   color:#EC9A3C;
 }
+#left,#right{
+  filter: grayscale(90%);
+}
 .button{
   padding:4px 14px 4px 14px;
   background-color: #BBF0DF;
@@ -167,14 +170,25 @@ padding: 30px;
 }
 #lrightpic{
 }
-.footer footer{
-  text-align: center;
+.footer{
+  padding:5% 0 5% 0;
+}
+footer{
+  color:white;
+  padding: 2% 0 0 0;
+  font-size: 80%;
 }
 @media only screen and (max-width: 320px) {
-  .header{
-    width: 320px;
+  body{
+    margin:0px;
+    padding:0px;
+
   }
 
+  .header{
+    width: 320px;
+
+  }
   .imgs,img{
     width: 320px;
     height: auto;
@@ -187,7 +201,7 @@ padding: 30px;
     display: grid;
     grid-template-columns:auto;
   }
-   .intro{
+   #intro{
      width: 100%;
     text-align: center;
     padding:2% 6% 2% 6%;
@@ -198,7 +212,7 @@ padding: 30px;
       margin: 0;
       display: grid;
       grid-template-columns:auto;
-
+      width: 320px;
   }
    nav{
     width: auto;
@@ -215,13 +229,13 @@ padding: 30px;
   body{
     margin:0px;
     padding:0px;
-    margin: 0px;
+
   }
   .header{
-    width: 375px;
+    width: 100%;
   }
-  .imgs img{
-    width: 370px;
+  .imgs,img{
+    width: 375px;
     height: auto;
   }
   .explorer{
@@ -232,7 +246,7 @@ padding: 30px;
     display: grid;
     grid-template-columns:auto;
   }
-   .intro{
+   #intro{
      width: 100%;
     text-align: center;
     padding:2% 6% 2% 6%;
@@ -258,10 +272,18 @@ padding: 30px;
 }
 @media only screen and (max-width: 414px)
 {
+  .header{
+    width: 100%;
+  }
+  .imgs{
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .imgs img{
-    width: 410px;
+    width: 100%;
     height: auto;
-    margin: 0px;
   }
   .explorer{
     display: grid;
@@ -271,7 +293,7 @@ padding: 30px;
     display: grid;
     grid-template-columns:auto;
   }
-   .intro{
+   #intro{
      width: 100%;
     text-align: center;
     padding:2% 6% 2% 6%;
@@ -306,9 +328,9 @@ padding: 30px;
      <label for="Questions">Questions?</label><a  id ="questions" href="tel:"> 1-1800-0000</a><br>
     <label id="grwork">GR.</label>
     <nav>
-      <a href="#">For Job Seekers</a>
+      <a href="jobs.html">For Job Seekers</a>
       <a href="#">For Employers</a>
-      <a href="#">About Us</a>
+      <a href="#intro">About Us</a>
     </nav>
    </div>
    <div class="main">
@@ -347,7 +369,7 @@ padding: 30px;
 
      </div>
    <div class="rightunderform">
- <article class="intro">
+ <article id="intro">
    <h3>Our Mission</h3>
    We’ve stood where you’re standing. We’ve been there before. As employers looking for talent, as people looking for work and as individuals just looking for something temporary to get them by. EG services take many forms, but our goal – our special skill – is always the same: we help people succeed.
 
@@ -384,10 +406,10 @@ Providing personal and Business solutions to professionals and Entreprises.<hr>
    </div>
    <div class="gettingstarted">
      <div class="">
-      <img src="left.jpg">
+      <img id="left"src="left.jpg">
      </div>
   <div class="">
-    <img src="right.jpg">
+    <img id ="right"src="right.jpg">
   </div>
 
    </div>
@@ -396,26 +418,27 @@ Providing personal and Business solutions to professionals and Entreprises.<hr>
    <div class="footer">
 
      <div class="applynow">
-           <button type="button" name="button">APPLY NOW</button>
+
+          <a href="jobs.html"><button type="button" name="button">APPLY NOW</button></a>
      </div>
     <div class="lastroll">
       <div class="foremployees">
         <a href="#">Payroll</a><br>
-        <a href="#">Find a Job</a>
+        <a href="jobs.html">Find a Job</a>
 
       </div>
       <div class="foremployers">
-        <a href="#">Direct Hire</a><br>
-        <a href="#">temporary Staffing</a><br>
+        <a href="jobs.html">Direct Hire</a><br>
+        <a href="jobs.html">temporary Staffing</a><br>
         <a href="#">Managment Services</a>
       </div>
       <div class="contactus">
-        <a href="#">Grand Rapids</a><br>
-        <a href="#">Rock Ford</a>
+        <a href="#jobs.html">Grand Rapids</a><br>
+        <a href="#jobs.html">Rock Ford</a>
       </div>
-         <footer>Copyright@gr.work</footer>
-    </div>
 
+    </div>
+<footer>Copyright@gr.work</footer>
      </div>
 
 
