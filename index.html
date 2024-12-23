@@ -1,450 +1,311 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>GR.Work</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <title>Just Information</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <style media="screen">
-   *{
-     margin: 0px;
-     padding: 0px;
-   }
-   body{
-     width: 100%;
-     height: 100%;
-     margin: 0px;
-     padding: 0px;
-   }
-   #questions{
-     color: white;
-   }
-   nav a{
-     color:white;
-     padding:20px;
-     color: #1065F2;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
 
-     font-weight: lighter;
-   }
-   nav{
-     margin-left:60%;
-   }
-   #grwork{
-      font-size: 2.5em;
-      margin-right: 70%;
-      color:white;
-      text-shadow: 1px 1px blue;
-   }
-   #grwork::after{
-     content: "Works";
-     font-size:.5em;
-   }
-   .header{
-      text-align: center;
-      color: #333333;
-      background-color: #B6B2B2;
-      padding-top: 1%;
-      font-weight: lighter;
-      width: 100%;
-   }
-   .imgs{
-     width: 90%;
-    height: auto;
-filter: grayscale(20%);
-   background-repeat: no-repeat;
-   margin-right:auto;
-  margin-left:auto;
-  margin-top:30px;
-   }
-   .imgs img{
-     width:100%;
-  height: 700px;
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4A90E2;
+        }
 
-   }
+        form {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
 
-   .form{
-     font-size: 1em;
-     text-align: center;
-     background-color: white;
-     margin: 40px 60px 0 60px;
-     padding-bottom: 3px;
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-   }
-   #midsection{
-     border: 1px solid black;
-       display: grid;
-       grid-template-columns:auto;
-    width: 100%;
-   }
-   .form table tr td{
-     padding:4px;
-   }
-   table{
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        } #openPopup{
+        	width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #comments{
+        	 background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+         #comments input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #openPopupComments{
+        	width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
 
-    margin-left: auto;
-    margin-right: auto;
+        input[type="submit"]:hover {
+            background-color: #357ABD;
+        }
+         .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        #comments{
+        	display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
 
+        }
 
-   }
-   #show{
-     display: none;
-   }
+        .popup {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
 
-   #intro{
-     width: 100%;
-     height: auto;
-     padding: 0% 20% 2% 20%;
-     text-align: center;
-     font-weight: lighter;
-   }
- .applynow button{
-   margin: 10px 0px 40px 0;
-   background-color: red;
- color:white;
-padding:2px;}
-   .footer{
-     color: white;
-     text-align: center;
-    background-color: gray;
-   }
- .lastroll a{
-   color: black;
- }
-  .lastroll{
-    color:black;
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    font-weight: lighter;
-  }
-.right label{
-  font-size: 3em;
-  background-color:#f2f2f2;
-  font-weight: lighter;
-  text-align: center;
-}
- .right article{
-  font-size: 1.5em;
-  background-color:#f2f2f2;
-  text-align: center;
-  font-weight: lighter;
-  padding: 8px;
-}
-.right article label{
-  font-weight:lighter;
-  color:#EC9A3C;
-}
-#left,#right{
-  filter: grayscale(90%);
-}
-.button{
-  padding:4px 14px 4px 14px;
-  background-color: #BBF0DF;
-}
-.explorer{
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-background-color:#f2f2f2;
-text-align: center;
-padding: 30px;
+        .popup input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-}
-.explorer .process{
-  margin: 10px;
-}
-.process label{
-   font-size: 1.5em;
-}
-.process a{
-  background-color:#bfbfbf;
-  padding:2px 60px 2px 60px;
-  color:white;font-weight: lighter;
-}
-.gettingstarted{
- display: grid;
- grid-template-columns:50% 50%;
- width: 100%;
-}
-.gettingstarted, img{
-  max-width: 100%;
-}
-#lrightpic{
-}
-.footer{
-  padding:5% 0 5% 0;
-}
-footer{
-  color:white;
-  padding: 2% 0 0 0;
-  font-size: 80%;
-}
-@media only screen and (max-width: 320px) {
-  body{
-    margin:0px;
-    padding:0px;
+        .popup button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-  }
+        .popup button:hover {
+            background-color: #0056b3;
+        }
 
-  .header{
-    width: 320px;
+        @media (max-width: 768px) {
+            form {
+                padding: 15px;
+            }
 
-  }
-  .imgs,img{
-    width: 320px;
-    height: auto;
-  }
-  .explorer{
-    display: grid;
-    grid-template-columns:auto;
-  }
-  .gettingstarted{
-    display: grid;
-    grid-template-columns:auto;
-  }
-   #intro{
-     width: 100%;
-    text-align: center;
-    padding:2% 6% 2% 6%;
+            h1 {
+                font-size: 24px;
+            }
 
-  }
-  #midsection{
-      padding: 0;
-      margin: 0;
-      display: grid;
-      grid-template-columns:auto;
-      width: 320px;
-  }
-   nav{
-    width: auto;
-    display: none;
-  }
-  #show{
-    display: block;
-  }
-  #noshow{
-    display: none;
-  }
-}
-@media only screen and (max-width: 375px) {
-  body{
-    margin:0px;
-    padding:0px;
-
-  }
-  .header{
-    width: 100%;
-  }
-  .imgs,img{
-    width: 375px;
-    height: auto;
-  }
-  .explorer{
-    display: grid;
-    grid-template-columns:auto;
-  }
-  .gettingstarted{
-    display: grid;
-    grid-template-columns:auto;
-  }
-   #intro{
-     width: 100%;
-    text-align: center;
-    padding:2% 6% 2% 6%;
-
-  }
-  #midsection{
-      padding: 0;
-      margin: 0;
-      display: grid;
-      grid-template-columns:auto;
-      width: 375px;
-  }
-   nav{
-    width: auto;
-    display: none;
-  }
-  #show{
-    display: block;
-  }
-  #noshow{
-    display: none;
-  }
-}
-@media only screen and (max-width: 414px)
-{
-  .header{
-    width: 100%;
-  }
-  .imgs{
-    padding: 0;
-    margin: 0;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .imgs img{
-    width: 100%;
-    height: auto;
-  }
-  .explorer{
-    display: grid;
-    grid-template-columns:auto;
-  }
-  .gettingstarted{
-    display: grid;
-    grid-template-columns:auto;
-  }
-   #intro{
-     width: 100%;
-    text-align: center;
-    padding:2% 6% 2% 6%;
-
-  }
-  #midsection{
-      padding: 0;
-      margin: 0;
-      display: grid;
-      grid-template-columns:auto;
-
-  }
-   nav{
-    width: auto;
-    display: none;
-  }
-  #show{
-    display: block;
-  }
-  #noshow{
-    display: none;
-  }
-}
-
+            input[type="submit"] {
+                font-size: 16px;
+            }
+        }
     </style>
-    <script>
+</head>
+<body>
+<h1>Just Information</h1>
+
+<form th:action="@{/submit}" th:object="${apartmentForm}" method="post">
+    <label for="apartment-name">Apartment Name:</label>
+    <input type="text" id="apartment-name" th:field="*{name}" required>
+
+    <label>Address:</label>
+    <button id="openPopup">Address</button>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <h3>Enter the Address</h3>
+
+            <input type="text" id="number" th:field="*{address.number}" placeholder="Number">
+            <input type="text" id="streetname" th:field="*{address.streetName}" placeholder="Street Name">
+            <input type="text" id="zipcode" th:field="*{address.zipcode}" placeholder="Zip Code">
+
+            <select id="state" th:field="*{address.state}" required>
+                <option value="">Select State</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+            </select><br>
+
+            <button type="button" id="closePopup">Done</button>
+
+        </div>
+    </div>
+
+
+    <label for="comments">Comments:</label>
+
+    <button id="openPopupComments" >Comments</button>
+
+    <div class="popup-overlay" id="comments">
+        <div class="popup">
+            <h3>Provide Your Feedback</h3>
+
+            <input type="text" th:field="*{comment[0].noise}" placeholder="Noise">
+            <input type="text" th:field="*{comment[1].services}" id="services" name="services" placeholder="Services">
+            <input type="text" th:field="*{comment[2].cleanliness}"  id="cleanliness" name="cleanliness" placeholder="Cleanliness">
+            <input type="text" th:field="*{comment[3].friendliness}" id="friendliness" name="friendliness" placeholder="Friendliness">
+            <input type="text" th:field="*{comment[4].amenities}" id="amenities" name="amenities" placeholder="Amenities">
+            <input type="text" th:field="*{comment[5].security}" id="security" name="security" placeholder="Security">
+            <input type="text" th:field="*{comment[6].maintenance}" id="maintenance" name="maintenance" placeholder="Maintenance">
+            <button type="button" id="closePopupComments">Done</button>
+            <script>
+
+      const commentsPopup = document.getElementById('openPopupComments');
+const commentsOverlay = document.getElementById('comments');
+const closeCommentsButton = document.getElementById('closePopupComments');
+
+commentsPopup.addEventListener('click', () => {
+    commentsOverlay.style.display = 'flex';
+});
+
+closeCommentsButton.addEventListener('click', () => {
+    commentsOverlay.style.display = 'none';
+});
+
 
     </script>
-  </head>
-  <body>
-   <div class="header">
-     <label for="Questions">Questions?</label><a  id ="questions" href="tel:"> 1-1800-0000</a><br>
-    <label id="grwork">GR.</label>
-    <nav>
-      <a href="jobs.html">For Job Seekers</a>
-      <a href="#">For Employers</a>
-      <a href="#intro">About Us</a>
-    </nav>
-   </div>
-   <div class="main">
-     <div class="imgs" >
-  <img src="https://s3.amazonaws.com/wordpress-production/wp-content/uploads/sites/19/2016/03/How-Highly-Productive-People-Work-Less-and-Get-More-Done.jpg" alt="">
-     </div>
-     <div id="midsection">
-     <div class="form">
-       <label  style="color:#262626;font-size:140%">Recruiter for Software Technologies</label>
-
-       <form  action="jobs.html" method="post" id="noshow">
-         <table>
-           <tr>
-             <td>City</td> <td> </td> <td>State</td> <td> </td> <td>Title</td>
-           </tr>
-           <tr>
-              <td><input type="text" class="form-control form-control"></td><td> </td> <td><input type="text" class="form-control form-control"></td><td></td>  <td><input type="text" class="form-control form-control"></td>
-           </tr>
-         </table>
-         <input class="button" type="submit" name="search" value="Search">
-       </form>
-       <form  action="jobs.html" method="post"  id="show">
-         <table>
-           <tr>
-             <td>City</td> <td><input type="text" class="form-control form-control">
-           </tr>
-           <tr>
-            <td>State </td> <td><input type="text" class="form-control form-control"></td>
-           </tr>
-           <tr>
-             <td>Title</td>  <td><input type="text" class="form-control form-control"></td>
-           </tr>
-         </table>
-         <input class="button"type="submit" name="" value="Search">
-       </form>
-
-     </div>
-   <div class="rightunderform">
- <article id="intro">
-   <h3>Our Mission</h3>
-   We’ve stood where you’re standing. We’ve been there before. As employers looking for talent, as people looking for work and as individuals just looking for something temporary to get them by. EG services take many forms, but our goal – our special skill – is always the same: we help people succeed.
-
-At EG, it’s not what you know. It’s who you know. And we know people.
- </article>
-   </div>
- </div>
-   <div class="right">
 
 
-          <article style="color:#EC9A3C">
-<label>Help When It's needed The Most</label><br>
-
-Providing personal and Business solutions to professionals and Entreprises.<hr>
-</article>
-<div class="explorer">
-  <div class="process">
-    <label for="">Recruiting Processing</label><hr>
-    <p>Custom recruitment solutions designed for employers who need help hiring teams of great people, consistently, efficiently and quickly.</p>
-    <a href="#">EXPLORE</a>
-  </div>
-  <div class="process">
-    <label for="">Direct Hiring</label><hr>
-    <p>A consultative approach to recruiting that helps professionals achieve their career dreams, and helps employers build their dream teams.</p>
-    <a href="#">EXPLORE</a>
-  </div>
-  <div class="process">
-    <label for="">IT</label><hr>
-    <p>A consultative approach to recruiting that helps professionals achieve their career dreams, and helps employers build their dream teams.</p>
-    <a href="#">EXPLORE</a>
-  </div>
-
-</div>
-   </div>
-   <div class="gettingstarted">
-     <div class="">
-      <img id="left"src="left.jpg">
-     </div>
-  <div class="">
-    <img id ="right"src="right.jpg">
-  </div>
-
-   </div>
-   </div>
-
-   <div class="footer">
-
-     <div class="applynow">
-
-          <a href="jobs.html"><button type="button" name="button">APPLY NOW</button></a>
-     </div>
-    <div class="lastroll">
-      <div class="foremployees">
-        <a href="apartment.html">Payroll</a><br>
-        <a href="jobs.html">Find a Job</a>
-
-      </div>
-      <div class="foremployers">
-        <a href="jobs.html">Direct Hire</a><br>
-        <a href="jobs.html">temporary Staffing</a><br>
-        <a href="#">Managment Services</a>
-      </div>
-      <div class="contactus">
-        <a href="#jobs.html">Grand Rapids</a><br>
-        <a href="#jobs.html">Rock Ford</a>
-      </div>
-
+        </div>
     </div>
-<footer>Copyright@gr.work</footer>
-     </div>
 
+    <script>
+        const openPopupButton = document.getElementById('openPopup');
+        const popupOverlay = document.getElementById('popupOverlay');
+        const closePopupButton = document.getElementById('closePopup');
 
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+        openPopupButton.addEventListener('click', () => {
+            popupOverlay.style.display = 'flex';
+        });
 
+        closePopupButton.addEventListener('click', () => {
+            popupOverlay.style.display = 'none';
+        });
+
+        // Optional: Handle form submission
+        const commentsForm = document.getElementById('commentsForm');
+        commentsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Process form data here
+            console.log('Form submitted');
+            popupOverlay.style.display = 'none';
+        });
+
+    </script>
+    <input type="submit" value="Submit">
+</form>
+
+</body>
 </html>
