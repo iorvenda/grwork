@@ -2,9 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <title>Just Information</title>
     <style>
         /* Basic Reset */
@@ -164,27 +163,92 @@
                 font-size: 16px;
             }
         }
-</style>
+    </style>
 </head>
 <body>
 <h1>Just Information</h1>
 
-<form th:action="@{/submit}" th:object="${apartmentForm}" method="post">
+<div>
+    
+<h1>Capture and Upload Image</h1>
+<video id="video" width="640" height="480" autoplay></video>
+<button id="snap">Snap Photo</button>
+<canvas id="canvas" width="640" height="480"></canvas>
+<form id="uploadForm" method="post" enctype="multipart/form-data" th:action="@{/upload}">
+    <input type="hidden" name="file" id="file">
+    <button type="submit">Upload</button>
+</form>
+<p th:text="${message}"></p>
+<script>
+        (function() {
+            var video = document.getElementById('video');
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var snap = document.getElementById('snap');
+            var uploadForm = document.getElementById('uploadForm');
+            var fileInput = document.getElementById('file');
+
+            // Get access to the camera!
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                    video.srcObject = stream;
+                    video.play();
+                });
+            }
+
+            // Trigger photo take
+            snap.addEventListener('click', function() {
+                context.drawImage(video, 0, 0, 640, 480);
+                var dataURL = canvas.toDataURL('image/jpeg');
+                fileInput.value = dataURL;
+            });
+
+            // Convert dataURL to blob and append to FormData
+            uploadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                var dataURL = fileInput.value;
+                var blob = dataURLToBlob(dataURL);
+                var formData = new FormData();
+                formData.append('file', blob, 'captured.jpg');
+
+                fetch(uploadForm.action, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.text()).then(data => {
+                    document.querySelector('p').innerText = data;
+                }).catch(error => {
+                    document.querySelector('p').innerText = 'File upload failed!';
+                });
+            });
+
+            function dataURLToBlob(dataURL) {
+                var binary = atob(dataURL.split(',')[1]);
+                var array = [];
+                for (var i = 0; i < binary.length; i++) {
+                    array.push(binary.charCodeAt(i));
+                }
+                return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+            }
+        })();
+    </script>
+
+</div>
+<form method="post" th:action="@{/submitting}" th:object="${apartmentForm}">
     <label for="apartment-name">Apartment Name:</label>
-    <input type="text" id="apartment-name" th:field="*{name}" required>
+    <input id="apartment-name" placeholder="Apartments Name"  required th:field="*{name}" type="text">
 
     <label>Address:</label>
-    <button id="openPopup">Address</button>
+    <button aria-controls="popupOverlay" aria-haspopup="dialog" id="openPopup">Address</button>
 
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup">
             <h3>Enter the Address</h3>
 
-            <input type="text" id="number" th:field="*{address.number}" placeholder="Number">
-            <input type="text" id="streetname" th:field="*{address.streetName}" placeholder="Street Name">
-            <input type="text" id="zipcode" th:field="*{address.zipcode}" placeholder="Zip Code">
+            <input id="number" placeholder="Number" th:field="*{address.number}" type="text">
+            <input id="streetname" placeholder="Street Name" th:field="*{address.streetName}" type="text">
+            <input id="zipcode" placeholder="Zip Code" th:field="*{address.zipcode}" type="text">
 
-            <select id="state" th:field="*{address.state}" required>
+            <select id="state" required th:field="*{address.state}">
                 <option value="">Select State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -238,7 +302,7 @@
                 <option value="WY">Wyoming</option>
             </select><br>
 
-            <button type="button" id="closePopup">Done</button>
+            <button id="closePopup" type="button">Done</button>
 
         </div>
     </div>
@@ -252,57 +316,55 @@
         <div class="popup">
             <h3>Provide Your Feedback</h3>
 
-            <input type="text" th:field="*{comment[0].noise}" placeholder="Noise">
-            <input type="text" th:field="*{comment[1].services}" id="services" name="services" placeholder="Services">
-            <input type="text" th:field="*{comment[2].cleanliness}"  id="cleanliness" name="cleanliness" placeholder="Cleanliness">
-            <input type="text" th:field="*{comment[3].friendliness}" id="friendliness" name="friendliness" placeholder="Friendliness">
-            <input type="text" th:field="*{comment[4].amenities}" id="amenities" name="amenities" placeholder="Amenities">
-            <input type="text" th:field="*{comment[5].security}" id="security" name="security" placeholder="Security">
-            <input type="text" th:field="*{comment[6].maintenance}" id="maintenance" name="maintenance" placeholder="Maintenance">
-            <button type="button" id="closePopupComments">Done</button>
+            <input placeholder="Noise" th:field="*{comment[0].noise}" type="text">
+            <input id="services" name="services" placeholder="Services" th:field="*{comment[1].services}" type="text">
+            <input id="cleanliness" name="cleanliness"  placeholder="Cleanliness" th:field="*{comment[2].cleanliness}" type="text">
+            <input id="friendliness" name="friendliness" placeholder="Friendliness" th:field="*{comment[3].friendliness}" type="text">
+            <input id="amenities" name="amenities" placeholder="Amenities" th:field="*{comment[4].amenities}" type="text">
+            <input id="security" name="security" placeholder="Security" th:field="*{comment[5].security}" type="text">
+            <input id="maintenance" name="maintenance" placeholder="Maintenance" th:field="*{comment[6].maintenance}" type="text">
+            <button id="closePopupComments" type="button">Done</button>
             <script>
-
-      const commentsPopup = document.getElementById('openPopupComments');
+ const commentsPopup = document.getElementById('openPopupComments');
 const commentsOverlay = document.getElementById('comments');
 const closeCommentsButton = document.getElementById('closePopupComments');
 
 commentsPopup.addEventListener('click', () => {
+ event.preventDefault();
     commentsOverlay.style.display = 'flex';
 });
 
 closeCommentsButton.addEventListener('click', () => {
     commentsOverlay.style.display = 'none';
 });
-
-
-</script>
-
-
+commentsOverlay.addEventListener('click', (event) => {
+    if (event.target === commentsOverlay) {
+        commentsOverlay.style.display = 'none';
+    }
+});
+    </script>
         </div>
-</div>
+    </div>
 
     <script>
         const openPopupButton = document.getElementById('openPopup');
         const popupOverlay = document.getElementById('popupOverlay');
         const closePopupButton = document.getElementById('closePopup');
 
-        openPopupButton.addEventListener('click', () => {
-            popupOverlay.style.display = 'flex';
-        });
+       openPopupButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    popupOverlay.style.display = 'flex';
+});
+popupOverlay.addEventListener('click', (event) => {
+    if (event.target === popupOverlay) {
+        popupOverlay.style.display = 'none';
+    }
+});
 
-        closePopupButton.addEventListener('click', () => {
-            popupOverlay.style.display = 'none';
-        });
 
-        // Optional: Handle form submission
-        const commentsForm = document.getElementById('commentsForm');
-        commentsForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Process form data here
-            console.log('Form submitted');
-            popupOverlay.style.display = 'none';
-        });
-
+form.addEventListener('submit', () => {
+    form.reset();
+});
     </script>
     <input type="submit" value="Submit">
 </form>
