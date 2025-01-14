@@ -171,9 +171,9 @@
 <div>
     
 <h1>Capture and Upload Image</h1>
-<video id="video" width="640" height="480" autoplay></video>
+<video id="video" width="340" height="340" autoplay></video>
 <button id="snap">Snap Photo</button>
-<canvas id="canvas" width="640" height="480"></canvas>
+<canvas id="canvas" width="340" height="340"></canvas>
 <form id="uploadForm" method="post" enctype="multipart/form-data" th:action="@{/upload}">
     <input type="hidden" name="file" id="file">
     <button type="submit">Upload</button>
@@ -198,7 +198,7 @@
 
             // Trigger photo take
             snap.addEventListener('click', function() {
-                context.drawImage(video, 0, 0, 640, 480);
+                context.drawImage(video, 0, 0, 340, 340);
                 var dataURL = canvas.toDataURL('image/jpeg');
                 fileInput.value = dataURL;
             });
